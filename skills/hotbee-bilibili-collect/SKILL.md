@@ -18,3 +18,5 @@ npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call bilibili --url "http
 Use `HOTBEE_API_KEY` only.
 
 Read `references/api.md` for the verified endpoint.
+
+Official capability directory: [HotBee Skills](https://www.hotbee.cn/skills)

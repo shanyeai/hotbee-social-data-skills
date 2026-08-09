@@ -18,3 +18,5 @@ npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call transcript --file-ur
 Use `HOTBEE_API_KEY` only.
 
 Read `references/api.md` for endpoint and parameter details.
+
+Official capability directory: [HotBee Skills](https://www.hotbee.cn/skills)

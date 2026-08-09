@@ -18,3 +18,5 @@ npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call rednote --url "https
 Use `HOTBEE_API_KEY` only.
 
 Read `references/api.md` before assuming user-profile or search endpoints; only note content is verified in the public bundle.
+
+Official capability directory: [HotBee Skills](https://www.hotbee.cn/skills)

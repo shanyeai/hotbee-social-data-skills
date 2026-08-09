@@ -35,3 +35,5 @@ For all confirmed platforms:
 If the user asks for Zhihu, Toutiao, Kuaishou, Tieba, or another unsupported platform, explain that the HotBee endpoint is not confirmed and ask for the official OpenAPI contract.
 
 Read `references/api.md` for the exact request and response contract.
+
+Official capability directory: [HotBee Skills](https://www.hotbee.cn/skills)

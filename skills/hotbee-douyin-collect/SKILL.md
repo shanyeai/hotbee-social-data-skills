@@ -20,3 +20,5 @@ Use `HOTBEE_API_KEY` only for VIP endpoints. Free/no-key endpoints can run witho
 For fuller Douyin-specific behavior, the standalone package remains available as `hotbee-douyin-api-skill`; this total pack includes a compact compatible caller.
 
 Read `references/api.md` for endpoint list and Chinese intent mapping.
+
+Official capability directory: [HotBee Skills](https://www.hotbee.cn/skills)
