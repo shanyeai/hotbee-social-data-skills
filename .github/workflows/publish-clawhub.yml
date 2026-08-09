@@ -1,0 +1,36 @@
+name: Publish Skills to ClawHub
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "skills/hotbee-bilibili-collect/**"
+      - "skills/hotbee-douyin-collect/**"
+      - "skills/hotbee-hot-rankings/**"
+      - "skills/hotbee-rednote-collect/**"
+      - "skills/hotbee-transcript/**"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish changed skills instead of running a dry-run preview
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: clawhub-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    uses: openclaw/clawhub/.github/workflows/skill-publish.yml@8aa76c1a7268749cc9eeabff570badf428ef4aaa
+    with:
+      root: skills
+      dry_run: ${{ github.event_name == 'workflow_dispatch' && inputs.publish != true }}
+    secrets:
+      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
