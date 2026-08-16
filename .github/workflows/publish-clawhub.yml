@@ -39,7 +39,6 @@ jobs:
     env:
       CLAWHUB_VERSION: 0.23.3
       CLAWHUB_REGISTRY: https://clawhub.ai
-      CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config.json
       DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.publish != true }}
       SKILL_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.skill || 'all' }}
       CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
@@ -61,11 +60,15 @@ jobs:
       - name: Configure ClawHub
         if: ${{ env.CLAWHUB_TOKEN != '' }}
         shell: bash
+        env:
+          CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config.json
         run: |
           node -e 'const fs=require("fs"); fs.writeFileSync(process.env.CLAWHUB_CONFIG_PATH, JSON.stringify({registry:process.env.CLAWHUB_REGISTRY,token:process.env.CLAWHUB_TOKEN}, null, 2));'
 
       - name: Publish selected skills
         shell: bash
+        env:
+          CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config.json
         run: |
           set -euo pipefail
 
