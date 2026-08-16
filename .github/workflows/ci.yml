@@ -10,6 +10,14 @@ permissions:
   contents: read
 
 jobs:
+  workflow-lint:
+    name: Validate GitHub workflows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run actionlint
+        run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12
+
   validate:
     name: Validate on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
