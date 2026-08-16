@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1440" viewBox="0 0 1080 1440">
+  <rect width="1080" height="1440" fill="#f2eee6"/>
+  <rect x="60" y="60" width="960" height="1320" rx="36" fill="#ffffff" stroke="#dde7f5"/>
+  <rect x="96" y="96" width="888" height="332" rx="32" fill="#fcf6ee"/>
+  <text x="132" y="156" font-size="30" font-weight="900" fill="#dd5a2b">HotBee 抖音视频拆解</text>
+  <text x="132" y="222.0" font-size="48" font-weight="900" fill="#241a14">把一条公开视频拆成可复用的内容增长报告</text>
+  <g transform="translate(132 474)">
+    <rect width="178" height="110" rx="20" fill="#f8fbff" stroke="#dde7f5"/><text x="24" y="42" font-size="22" font-weight="700" fill="#667489">播放</text><text x="24" y="84" font-size="34" font-weight="900" fill="#172136">128万</text>
+    <rect x="202" width="178" height="110" rx="20" fill="#f8fbff" stroke="#dde7f5"/><text x="226" y="42" font-size="22" font-weight="700" fill="#667489">点赞</text><text x="226" y="84" font-size="34" font-weight="900" fill="#172136">7.6万</text>
+    <rect x="404" width="178" height="110" rx="20" fill="#f8fbff" stroke="#dde7f5"/><text x="428" y="42" font-size="22" font-weight="700" fill="#667489">评论</text><text x="428" y="84" font-size="34" font-weight="900" fill="#172136">4,860</text>
+    <rect x="606" width="178" height="110" rx="20" fill="#f8fbff" stroke="#dde7f5"/><text x="630" y="42" font-size="22" font-weight="700" fill="#667489">分享</text><text x="630" y="84" font-size="34" font-weight="900" fill="#172136">9,200</text>
+  </g>
+  <text x="132" y="672" font-size="30" font-weight="900" fill="#172136">核心摘要</text>
+  <text x="132" y="724.0" font-size="30" font-weight="600" fill="#273140">示例创作者 这条内容的核心看点是把“把一条公开视频拆成可</text>
+<text x="132" y="764.5" font-size="30" font-weight="600" fill="#273140">复用的内容增长报告”包装成可理解、可互动、可继续追问的内</text>
+<text x="132" y="805.0" font-size="30" font-weight="600" fill="#273140">容。</text>
+  <rect x="96" y="900" width="888" height="210" rx="28" fill="#f8fbff" stroke="#dde7f5"/>
+  <text x="132" y="960" font-size="30" font-weight="900" fill="#172136">开场抓手</text>
+  <text x="132" y="1012.0" font-size="28" font-weight="600" fill="#273140">别再只看播放量了，先拆开头三秒为什么能抓住人</text>
+  <rect x="96" y="1150" width="888" height="170" rx="28" fill="#fcf6ee" stroke="#e9dfd2"/>
+  <text x="132" y="1210" font-size="30" font-weight="900" fill="#172136">评论信号</text>
+  <text x="132" y="1260.0" font-size="26" font-weight="600" fill="#3a2d24">这个报告入口在哪里？想拿来复盘自己的视频。</text>
+  <text x="132" y="1350" font-size="20" font-weight="700" fill="#667489">HTML、评论 CSV、文案 MD 与原始 JSON 已同步落盘</text>
+</svg>

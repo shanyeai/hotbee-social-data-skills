@@ -12,7 +12,7 @@ Only process a public Bilibili URL explicitly supplied by the user. Do not bypas
 Use the package CLI:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call bilibili --url "https://www.bilibili.com/video/BV..."
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call bilibili --url "https://www.bilibili.com/video/BV..."
 ```
 
 Use `HOTBEE_API_KEY` only.

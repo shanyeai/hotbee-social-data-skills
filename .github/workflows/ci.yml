@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 22
+
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Test the public CLI
+        run: npm test
+
+      - name: Test skills and report safety
+        run: python -X utf8 -m unittest discover -s tests -v
+
+      - name: Compile Python entry points
+        run: python -X utf8 -m py_compile skills/hotbee-douyin-video-report/scripts/douyin_video_report.py examples/douyin-video-report/generate_demo.py
+
+      - name: Regenerate the offline demo
+        run: python -X utf8 examples/douyin-video-report/generate_demo.py
+
+      - name: Verify committed demo artifacts are current
+        shell: bash
+        run: git diff --exit-code -- docs/assets/report-preview.svg examples/douyin-video-report/report.html examples/douyin-video-report/report-card.svg examples/douyin-video-report/sample-comments.json examples/douyin-video-report/sample-transcript.md

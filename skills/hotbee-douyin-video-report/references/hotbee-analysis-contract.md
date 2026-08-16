@@ -16,7 +16,7 @@ Base URL：`https://www.smsz.xyz/prod-api`
 
 ## 网络与凭证安全
 
-- 密钥只从本机 `HOTBEE_DOUYIN_KEY` 环境变量读取。
+- 密钥优先从本机 `HOTBEE_API_KEY` 环境变量读取，并兼容旧变量 `HOTBEE_DOUYIN_KEY`。
 - 含密钥的请求异常必须先清理再写入警告或原始错误 JSON。
 - 原始响应落盘前必须递归清理 `key`、`token`、`secret`、`password` 和授权字段。
 - 自定义 Base URL 必须使用 HTTPS；只有 `localhost` 或回环 IP 可以使用 HTTP。

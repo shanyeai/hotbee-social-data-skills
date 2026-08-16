@@ -1,0 +1,42 @@
+[
+  {
+    "author": "用户甲",
+    "text": "这个报告入口在哪里？想拿来复盘自己的视频。",
+    "intent": "求入口",
+    "location": "北京",
+    "likeCount": 328,
+    "time": "刚刚"
+  },
+  {
+    "author": "用户乙",
+    "text": "能不能出一期完整教程，特别想看评论需求怎么分类。",
+    "intent": "求教程",
+    "location": "上海",
+    "likeCount": 215,
+    "time": "2分钟前"
+  },
+  {
+    "author": "用户丙",
+    "text": "收藏了，数据和脚本放在一起比只看点赞有用。",
+    "intent": "正向反馈",
+    "location": "广东",
+    "likeCount": 186,
+    "time": "5分钟前"
+  },
+  {
+    "author": "用户丁",
+    "text": "适合小团队吗？想知道价格和使用门槛。",
+    "intent": "问价格",
+    "location": "浙江",
+    "likeCount": 94,
+    "time": "8分钟前"
+  },
+  {
+    "author": "用户戊",
+    "text": "建议增加同赛道视频对比，这样选题判断更直观。",
+    "intent": "提建议",
+    "location": "江苏",
+    "likeCount": 73,
+    "time": "12分钟前"
+  }
+]

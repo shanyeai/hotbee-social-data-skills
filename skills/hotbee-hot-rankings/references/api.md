@@ -21,19 +21,19 @@ All confirmed hot-ranking endpoints use:
 Example:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call hot-rankings --dry-run --text "获取百度和抖音热榜"
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --text "获取百度和抖音热榜"
 ```
 
 All confirmed platforms:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call hot-rankings --dry-run --text "全网热榜"
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --text "全网热榜"
 ```
 
 Specific platform flag:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call hot-rankings --dry-run --platform baidu --platform douyin
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --platform baidu --platform douyin
 ```
 
 Expected response shape follows the Xiaohongshu OpenAPI pattern when fields are present:

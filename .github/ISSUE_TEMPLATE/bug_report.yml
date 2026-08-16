@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a reproducible problem in a public skill or the local CLI.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Never paste an API key, private URL, collected user data, or unredacted API response.
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Affected skill
+      options:
+        - hotbee-douyin-collect
+        - hotbee-douyin-video-report
+        - hotbee-rednote-collect
+        - hotbee-bilibili-collect
+        - hotbee-hot-rankings
+        - hotbee-transcript
+        - CLI or installer
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include the expected result, actual result, and a minimal redacted reproduction.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Windows 11, Node 22, Python 3.12, Codex
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, private URLs, personal data, and paid API output.
+          required: true

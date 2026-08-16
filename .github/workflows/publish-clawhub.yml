@@ -1,27 +1,32 @@
 name: Publish Skills to ClawHub
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "skills/hotbee-bilibili-collect/**"
-      - "skills/hotbee-douyin-collect/**"
-      - "skills/hotbee-douyin-video-report/**"
-      - "skills/hotbee-hot-rankings/**"
-      - "skills/hotbee-rednote-collect/**"
-      - "skills/hotbee-transcript/**"
+  release:
+    types:
+      - published
   workflow_dispatch:
     inputs:
+      skill:
+        description: Publish one skill, or all skills
+        required: true
+        type: choice
+        default: all
+        options:
+          - all
+          - hotbee-bilibili-collect
+          - hotbee-douyin-collect
+          - hotbee-douyin-video-report
+          - hotbee-hot-rankings
+          - hotbee-rednote-collect
+          - hotbee-transcript
       publish:
-        description: Publish changed skills instead of running a dry-run preview
+        description: Publish instead of running a dry-run preview
         required: true
         type: boolean
         default: false
 
 permissions:
   contents: read
-  id-token: write
 
 concurrency:
   group: clawhub-publish-${{ github.ref }}
@@ -29,9 +34,102 @@ concurrency:
 
 jobs:
   publish:
-    uses: openclaw/clawhub/.github/workflows/skill-publish.yml@8aa76c1a7268749cc9eeabff570badf428ef4aaa
-    with:
-      root: skills
-      dry_run: ${{ github.event_name == 'workflow_dispatch' && inputs.publish != true }}
-    secrets:
-      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLAWHUB_VERSION: 0.23.3
+      CLAWHUB_REGISTRY: https://clawhub.ai
+      CLAWHUB_CONFIG_PATH: ${{ runner.temp }}/clawhub-config.json
+      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.publish != true }}
+      SKILL_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.skill || 'all' }}
+      CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 22
+
+      - name: Validate publish credentials
+        shell: bash
+        run: |
+          if [[ "$DRY_RUN" == "false" && -z "$CLAWHUB_TOKEN" ]]; then
+            echo "::error::A real publish requires the CLAWHUB_TOKEN repository secret."
+            exit 1
+          fi
+
+      - name: Configure ClawHub
+        if: ${{ env.CLAWHUB_TOKEN != '' }}
+        shell: bash
+        run: |
+          node -e 'const fs=require("fs"); fs.writeFileSync(process.env.CLAWHUB_CONFIG_PATH, JSON.stringify({registry:process.env.CLAWHUB_REGISTRY,token:process.env.CLAWHUB_TOKEN}, null, 2));'
+
+      - name: Publish selected skills
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "$SKILL_INPUT" == "all" ]]; then
+            mapfile -t targets < <(find skills -mindepth 2 -maxdepth 2 -name SKILL.md -printf '%h\n' | sort)
+          else
+            targets=("skills/$SKILL_INPUT")
+          fi
+
+          if [[ ${#targets[@]} -eq 0 ]]; then
+            echo "::error::No skill folders were selected."
+            exit 1
+          fi
+
+          failed=0
+          for target in "${targets[@]}"; do
+            if [[ ! -f "$target/SKILL.md" ]]; then
+              echo "::error file=$target::Missing SKILL.md"
+              failed=1
+              continue
+            fi
+
+            command=(
+              npx --yes "clawhub@$CLAWHUB_VERSION"
+              --workdir "$GITHUB_WORKSPACE"
+              --site "$CLAWHUB_REGISTRY"
+              --registry "$CLAWHUB_REGISTRY"
+              skill publish "$target"
+              --json
+              --source-repo "$GITHUB_REPOSITORY"
+              --source-commit "$GITHUB_SHA"
+              --source-path "$target"
+              --source-ref "$GITHUB_REF"
+            )
+            if [[ "$DRY_RUN" == "true" ]]; then
+              command+=(--dry-run)
+            fi
+
+            echo "Publishing $target (dry-run: $DRY_RUN)"
+            set +e
+            output="$("${command[@]}")"
+            exit_code=$?
+            set -e
+            printf '%s\n' "$output"
+
+            if [[ $exit_code -ne 0 ]]; then
+              echo "::error file=$target::ClawHub CLI exited with code $exit_code."
+              failed=1
+              continue
+            fi
+
+            status="$(printf '%s' "$output" | node -e 'let value=""; process.stdin.on("data", chunk => value += chunk); process.stdin.on("end", () => { try { process.stdout.write(String(JSON.parse(value).status || "")); } catch { process.exit(1); } });')"
+            case "$status" in
+              would-publish|published|unchanged)
+                echo "Accepted ClawHub status for $target: $status"
+                ;;
+              pending-publication)
+                echo "::notice file=$target::ClawHub accepted this skill and placed it in pending-publication."
+                ;;
+              *)
+                echo "::error file=$target::Unexpected ClawHub status: ${status:-missing}"
+                failed=1
+                ;;
+            esac
+          done
+
+          exit "$failed"

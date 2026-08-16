@@ -115,6 +115,11 @@ def validate_base_url(value: str) -> str:
     return text
 
 
+def hotbee_api_key() -> str:
+    """Read the shared key first while keeping the former variable compatible."""
+    return (os.environ.get("HOTBEE_API_KEY") or os.environ.get("HOTBEE_DOUYIN_KEY") or "").strip()
+
+
 def is_allowed_media_url(value: str) -> bool:
     try:
         parsed = urllib.parse.urlsplit(value)
@@ -753,7 +758,7 @@ def transcript_sources(video: dict[str, Any], raw_url: str, resolved_url: str) -
 
 def fetch_transcript(base_url: str, video: dict[str, Any], raw_url: str, resolved_url: str, key: str, raw_dir: Path, warnings: list[str]) -> tuple[str, str]:
     if not key:
-        warnings.append("没有配置 HOTBEE_DOUYIN_KEY，已跳过音视频转文案。")
+        warnings.append("没有配置 HOTBEE_API_KEY，已跳过音视频转文案。")
         return "", ""
 
     last_error = ""
@@ -924,7 +929,7 @@ def merge_comments_payloads(payloads: list[Any], limit: int) -> list[dict[str, A
 
 def fetch_comments(base_url: str, video: dict[str, Any], raw_url: str, resolved_url: str, key: str, max_comments: int, raw_dir: Path, warnings: list[str]) -> list[dict[str, Any]]:
     if not key:
-        warnings.append("没有配置 HOTBEE_DOUYIN_KEY，已跳过评论采集。")
+        warnings.append("没有配置 HOTBEE_API_KEY，已跳过评论采集。")
         return []
 
     expected_count = parse_metric(video.get("commentCount"))
@@ -1413,9 +1418,10 @@ def render_html(video: dict[str, Any], report: dict[str, Any], transcript: str, 
     * { box-sizing:border-box; }
     html,body { margin:0; min-height:100%; background:var(--video-bg-0); }
     body { color:var(--video-text); font-family:var(--video-font-sans); text-rendering:optimizeLegibility; }
-    main { width:min(1450px,calc(100vw - 56px)); margin:28px auto 40px; }
-    .video-report { display:flex; flex-direction:column; gap:28px; width:100%; padding:0; background:var(--video-bg-0); color:var(--video-text); }
+    main { width:min(1450px,calc(100vw - 56px)); max-width:100%; margin:28px auto 40px; }
+    .video-report { display:flex; flex-direction:column; gap:28px; width:100%; min-width:0; padding:0; background:var(--video-bg-0); color:var(--video-text); }
     .hero-grid { display:grid; grid-template-columns:minmax(220px,270px) minmax(0,1fr); gap:28px; align-items:stretch; }
+    .hero-grid,.hero-card,.panel,.split-grid,.comment-grid,.metrics-grid,.script-grid,.suggestions-grid,.comment-subgrid { min-width:0; }
     .cover { display:flex; width:100%; min-height:360px; align-items:stretch; justify-content:center; border:0; background:transparent; }
     .cover img { display:block; width:100%; height:100%; border-radius:22px; object-fit:cover; filter:saturate(.92) contrast(.98); }
     .cover-empty { display:flex; min-height:320px; width:100%; align-items:center; justify-content:center; border:1px solid var(--video-line); border-radius:22px; background:var(--video-panel-solid); color:var(--video-muted); }
@@ -1510,7 +1516,7 @@ def render_html(video: dict[str, Any], report: dict[str, Any], transcript: str, 
     .warnings ul { margin:16px 0 0; padding-left:20px; }
     .report-attribution-footer { border:0; background:transparent; color:var(--video-soft); font-family:var(--video-font-serif); font-size:16px; font-style:italic; letter-spacing:.12em; line-height:1.75; text-align:center; }
     @media (max-width:1100px) {
-      main { width:min(100vw - 28px,1450px); margin:14px auto 28px; }
+      main { width:min(1450px,calc(100vw - 28px)); margin:14px auto 28px; }
       .hero-grid,.split-grid,.comment-grid { grid-template-columns:1fr; }
       .cover { min-height:0; }
       .cover img { max-height:460px; object-fit:contain; }
@@ -1520,8 +1526,11 @@ def render_html(video: dict[str, Any], report: dict[str, Any], transcript: str, 
       .summary { font-size:22px; }
     }
     @media (max-width:680px) {
+      main { width:calc(100vw - 24px); margin:12px auto 24px; }
       .metrics-grid,.script-grid,.suggestions-grid,.comment-subgrid { grid-template-columns:1fr; }
       .hero-card,.panel { padding:20px; }
+      h1 { font-size:clamp(30px,9vw,36px); }
+      .summary { font-size:20px; }
     }
     """
 
@@ -1780,7 +1789,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
     args.base_url = validate_base_url(args.base_url)
-    key = os.environ.get("HOTBEE_DOUYIN_KEY", "").strip()
+    key = hotbee_api_key()
     output_root = Path(args.output_dir).expanduser()
     out_dir = output_root / now_slug()
     raw_dir = out_dir / "raw"

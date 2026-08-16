@@ -14,5 +14,5 @@ Scope limit:
 Example:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call rednote --dry-run --url "https://www.xiaohongshu.com/explore/xxxx"
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call rednote --dry-run --url "https://www.xiaohongshu.com/explore/xxxx"
 ```
