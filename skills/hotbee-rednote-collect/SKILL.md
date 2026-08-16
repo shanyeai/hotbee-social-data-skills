@@ -12,7 +12,7 @@ Only process a public note URL explicitly supplied by the user. Do not bypass lo
 Use the package CLI:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call rednote --url "https://www.xiaohongshu.com/explore/xxxx"
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call rednote --url "https://www.xiaohongshu.com/explore/xxxx"
 ```
 
 Use `HOTBEE_API_KEY` only.

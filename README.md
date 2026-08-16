@@ -1,14 +1,18 @@
 # HotBee Social Data Skills
 
+[![CI](https://github.com/shanye1402-hash/hotbee-social-data-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/shanye1402-hash/hotbee-social-data-skills/actions/workflows/ci.yml)
+[![GitHub release](https://img.shields.io/github/v/release/shanye1402-hash/hotbee-social-data-skills)](https://github.com/shanye1402-hash/hotbee-social-data-skills/releases)
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-blue.svg)](LICENSE)
 
 Six focused Agent Skills for public social-media data collection, hot rankings, media transcription, and Douyin video reporting through HotBee.
 
-HotBee 社媒数据精选技能包：包含六个数据与分析 Skill，不包含图片或视频生成能力。
+HotBee 社媒数据精选技能包：一个公开仓库、一套安装命令，覆盖六个采集与分析 Skill，不包含图片或视频生成能力。
 
-官网：[HotBee.cn](https://www.hotbee.cn) · [Skills 页面](https://www.hotbee.cn/skills)
+[HotBee.cn](https://www.hotbee.cn) · [Skills 页面](https://www.hotbee.cn/skills)
 
-## Included Skills
+![HotBee Douyin video report preview](docs/assets/report-preview.png)
+
+## What you get
 
 | Skill | 中文能力 | Verified scope |
 | --- | --- | --- |
@@ -17,46 +21,94 @@ HotBee 社媒数据精选技能包：包含六个数据与分析 Skill，不包�
 | `hotbee-bilibili-collect` | B站数据采集 | 公开视频数据解析 |
 | `hotbee-hot-rankings` | 全网热榜 | 小红书、抖音、百度、微博、B站 |
 | `hotbee-transcript` | 音视频转文字 | 用户提供的音视频 URL |
-| `hotbee-douyin-video-report` | 抖音视频报告 | 视频数据、评论、转写、HTML 拆解报告和 SVG 报告卡片 |
+| `hotbee-douyin-video-report` | 抖音视频报告 | HTML 报告、评论、转写稿、原始 JSON 和 SVG 报告卡片 |
 
-## Install
+## Quick start
 
-Install all six with the Agent Skills CLI:
+Install all six skills from this public repository:
+
+```bash
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 install
+```
+
+Install only one skill:
+
+```bash
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 install douyin
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 install douyin-video-report
+```
+
+Clients that support the Agent Skills CLI can also use:
 
 ```bash
 npx skills add shanye1402-hash/hotbee-social-data-skills
 ```
 
-The Skills call the versioned HotBee API CLI when execution is requested:
+Set the shared credential only in your local environment:
 
-```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 install douyin
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 install rednote
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 install bilibili
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 install hot-rankings
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 install transcript
+```powershell
+[Environment]::SetEnvironmentVariable("HOTBEE_API_KEY", "YOUR_KEY", "User")
 ```
 
-The bundled Douyin video-report skill runs directly from its own Python script and does not use the package CLI above:
-
 ```bash
-python skills/hotbee-douyin-video-report/scripts/douyin_video_report.py --url "抖音视频链接" --output-dir "./output/douyin-video-report"
+export HOTBEE_API_KEY="YOUR_KEY"
 ```
 
-In a compatible Agent Skills client, use:
+Preview paid API requests without consuming quota:
+
+```bash
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --text "全网热榜"
+```
+
+In a compatible Agent Skills client:
 
 ```text
 使用 $hotbee-douyin-video-report 解析这个抖音视频链接，并生成 HTML 报告、报告图片、评论 CSV/JSON 和视频文案。视频链接：{请粘贴抖音视频链接}
 ```
 
+From a cloned repository, the video-report script can also run directly:
+
+```bash
+python skills/hotbee-douyin-video-report/scripts/douyin_video_report.py --url "抖音视频链接" --output-dir "./output/douyin-video-report"
+```
+
+## Example output
+
+The repository includes a synthetic, offline-safe [demo report](examples/douyin-video-report/report.html) and its [sample data](examples/douyin-video-report/README.md). No real username, comment, credential, or API response is included.
+
+```text
+douyin-video-report/
+├── report.html
+├── report-card.svg
+├── sample-comments.json
+└── sample-transcript.md
+```
+
+Regenerate the demo without calling any external API:
+
+```bash
+python examples/douyin-video-report/generate_demo.py
+```
+
+## Compatibility
+
+- OpenAI Codex and other clients that discover `~/.agents/skills/`
+- Claude Code when `~/.claude/` is present or `--claude` is supplied
+- Any agent that can read a local `SKILL.md`
+- Direct CLI usage with Node.js 18+; the report generator uses Python 3.10+
+
 ## Credential and cost boundary
 
-- The collection, ranking, and transcription skills read paid-endpoint credentials from `HOTBEE_API_KEY`.
-- `hotbee-douyin-video-report` reads its credential from `HOTBEE_DOUYIN_KEY` and can still generate a partial report when optional paid data is unavailable.
+- All six skills use `HOTBEE_API_KEY`. The former `HOTBEE_DOUYIN_KEY` remains a compatibility fallback for the video-report script.
 - Start with `--dry-run` and confirm the user's quota/cost intent before a paid live call.
 - Never put a key in a prompt, command argument, repository, report, or public issue.
 - Only process public links or media the user is authorized to submit. Do not bypass access controls, login gates, rate limits, or paywalls.
 - Outputs may contain public usernames, posts, comments, ranking topics, or transcripts. Review applicable laws and platform rules before redistributing them.
+
+## Contributing
+
+Bug reports and narrowly scoped improvements are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, and use private vulnerability reporting for security issues.
 
 ## License
 

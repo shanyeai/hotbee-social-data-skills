@@ -1,0 +1,31 @@
+{
+  "name": "hotbee-social-data-skills",
+  "version": "1.1.0",
+  "description": "Six open Agent Skills and a one-command CLI for HotBee social-data workflows.",
+  "type": "module",
+  "bin": {
+    "hotbee-social-skills": "bin/hotbee-skills.mjs"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node ./bin/hotbee-skills.mjs install --dry-run && node ./bin/hotbee-skills.mjs guide hot-rankings && node ./bin/hotbee-skills.mjs call douyin --dry-run --text \"解析这个视频的播放量 https://v.douyin.com/xxxx/\" && node ./bin/hotbee-skills.mjs call rednote --dry-run --url \"https://www.xiaohongshu.com/explore/xxxx\" && node ./bin/hotbee-skills.mjs call bilibili --dry-run --url \"https://www.bilibili.com/video/BV1xx\" && node ./bin/hotbee-skills.mjs call transcript --dry-run --file-url \"https://example.com/video.mp4\" && node ./bin/hotbee-skills.mjs call hot-rankings --dry-run --text \"全网热榜\""
+  },
+  "keywords": [
+    "open-agent-skills",
+    "hotbee",
+    "douyin",
+    "rednote",
+    "bilibili",
+    "transcription",
+    "hot-rankings"
+  ],
+  "license": "MIT-0",
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -25,7 +25,7 @@ python scripts/douyin_video_report.py --url "抖音视频链接" --output-dir ".
 - `raw/`：HotBee 接口原始响应 JSON。
 - `run_manifest.json`：本次输入、接口、警告、产物路径。
 
-评论和转写通常需要 HotBee 权限，并可能消耗用户的 HotBee 套餐额度。运行这些能力前先确认用户愿意使用自己的额度。脚本只读取用户本机环境变量 `HOTBEE_DOUYIN_KEY`，并会在落盘前清理敏感字段。不要把任何敏感凭证写进提示词、公开文档、前端代码或聊天记录。
+评论和转写通常需要 HotBee 权限，并可能消耗用户的 HotBee 套餐额度。运行这些能力前先确认用户愿意使用自己的额度。脚本优先读取用户本机环境变量 `HOTBEE_API_KEY`，同时兼容旧变量 `HOTBEE_DOUYIN_KEY`，并会在落盘前清理敏感字段。不要把任何敏感凭证写进提示词、公开文档、前端代码或聊天记录。
 
 ## 工作流
 

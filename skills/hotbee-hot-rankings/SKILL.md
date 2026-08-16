@@ -22,7 +22,7 @@ Use the confirmed HotBee hot-ranking endpoints:
 - Known cost: Xiaohongshu OpenAPI states 5 points per call. Treat other confirmed hot endpoints as paid unless HotBee documents otherwise.
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-api-skills#v1.0.5 call hot-rankings --dry-run --text "获取百度和抖音热榜"
+npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --text "获取百度和抖音热榜"
 ```
 
 For all confirmed platforms:

@@ -3,6 +3,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 SCRIPT_PATH = (
@@ -52,6 +53,12 @@ class PublicSafetyTests(unittest.TestCase):
     def test_no_third_party_unshortener(self):
         source = SCRIPT_PATH.read_text(encoding="utf-8")
         self.assertNotIn("unshorten.me", source)
+
+    def test_shared_key_is_primary_and_legacy_key_still_works(self):
+        with patch.dict("os.environ", {"HOTBEE_API_KEY": "shared", "HOTBEE_DOUYIN_KEY": "legacy"}, clear=True):
+            self.assertEqual(MODULE.hotbee_api_key(), "shared")
+        with patch.dict("os.environ", {"HOTBEE_DOUYIN_KEY": "legacy"}, clear=True):
+            self.assertEqual(MODULE.hotbee_api_key(), "legacy")
 
 
 if __name__ == "__main__":

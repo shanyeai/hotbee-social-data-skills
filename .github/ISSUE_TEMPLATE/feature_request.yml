@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest a focused improvement to an existing public skill.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: User problem
+      description: Describe the concrete task a user is trying to complete.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Show an example prompt, command, or output when possible.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This request relates to public social-data collection, rankings, transcription, or report generation.
+          required: true
