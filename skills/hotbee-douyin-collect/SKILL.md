@@ -12,7 +12,7 @@ Only process public Douyin links or public identifiers the user explicitly provi
 Use the package CLI:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call douyin --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 call douyin --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
 ```
 
 Use `HOTBEE_API_KEY` only for VIP endpoints. Free/no-key endpoints can run without a key. If a requested Douyin catalog path is listed as stale in `references/api.md`, explain the current contract gap instead of calling it.

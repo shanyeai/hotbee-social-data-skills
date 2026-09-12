@@ -40,9 +40,9 @@ Do not select these paths unless HotBee publishes an updated contract or a fresh
 ## Examples
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
 ```
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "分析这个达人主页的作品和粉丝画像 https://www.douyin.com/user/xxxx"
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "分析这个达人主页的作品和粉丝画像 https://www.douyin.com/user/xxxx"
 ```

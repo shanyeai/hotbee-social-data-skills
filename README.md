@@ -1,7 +1,7 @@
 # HotBee Social Data Skills
 
-[![CI](https://github.com/shanye1402-hash/hotbee-social-data-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/shanye1402-hash/hotbee-social-data-skills/actions/workflows/ci.yml)
-[![GitHub release](https://img.shields.io/github/v/release/shanye1402-hash/hotbee-social-data-skills)](https://github.com/shanye1402-hash/hotbee-social-data-skills/releases)
+[![CI](https://github.com/shanyeai/hotbee-social-data-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/shanyeai/hotbee-social-data-skills/actions/workflows/ci.yml)
+[![GitHub release](https://img.shields.io/github/v/release/shanyeai/hotbee-social-data-skills)](https://github.com/shanyeai/hotbee-social-data-skills/releases)
 [![License: MIT-0](https://img.shields.io/badge/License-MIT--0-blue.svg)](LICENSE)
 
 Six focused Agent Skills for public social-media data collection, hot rankings, media transcription, and Douyin video reporting through HotBee.
@@ -28,20 +28,20 @@ HotBee 社媒数据精选技能包：一个公开仓库、一套安装命令，�
 Install all six skills from this public repository:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 install
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 install
 ```
 
 Install only one skill:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 install douyin
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 install douyin-video-report
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 install douyin
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 install douyin-video-report
 ```
 
 Clients that support the Agent Skills CLI can also use:
 
 ```bash
-npx skills add shanye1402-hash/hotbee-social-data-skills
+npx skills add shanyeai/hotbee-social-data-skills
 ```
 
 Set the shared credential only in your local environment:
@@ -57,8 +57,8 @@ export HOTBEE_API_KEY="YOUR_KEY"
 Preview paid API requests without consuming quota:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --text "全网热榜"
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 call douyin --dry-run --text "解析这个视频的播放量和评论 https://v.douyin.com/xxxx/"
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 call hot-rankings --dry-run --text "全网热榜"
 ```
 
 In a compatible Agent Skills client:

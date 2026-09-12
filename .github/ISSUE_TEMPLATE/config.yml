@@ -4,5 +4,5 @@ contact_links:
     url: https://www.hotbee.cn/skills
     about: View official HotBee capabilities and service information.
   - name: Security report
-    url: https://github.com/shanye1402-hash/hotbee-social-data-skills/security/advisories/new
+    url: https://github.com/shanyeai/hotbee-social-data-skills/security/advisories/new
     about: Privately report a vulnerability or accidental credential exposure.

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
 const API_BASE = "https://www.smsz.xyz/prod-api";
-const PACKAGE_SPEC = "github:shanye1402-hash/hotbee-social-data-skills#v1.1.0";
+const PACKAGE_SPEC = "github:shanyeai/hotbee-social-data-skills#v1.1.0";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");

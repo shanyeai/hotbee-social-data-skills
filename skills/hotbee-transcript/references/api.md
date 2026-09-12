@@ -11,5 +11,5 @@ Verified from HotBee public bundle:
 Example:
 
 ```bash
-npx -y github:shanye1402-hash/hotbee-social-data-skills#v1.1.0 call transcript --dry-run --file-url "https://example.com/audio.mp3"
+npx -y github:shanyeai/hotbee-social-data-skills#v1.1.0 call transcript --dry-run --file-url "https://example.com/audio.mp3"
 ```
